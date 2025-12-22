@@ -1,0 +1,46 @@
+package components
+
+templ Main() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>flamendless</title>
+			@onceHeadLinks.Once() {
+				<link href="/youth-convention-2025/static/css/tailwind.css" rel="stylesheet"/>
+				<link href="/youth-convention-2025/static/css/main.css" rel="stylesheet"/>
+			}
+		</head>
+		<body
+			class="w-screen h-screen bg-cover bg-center bg-no-repeat overflow-x-hidden flex flex-col"
+		>
+			<div
+				id="header"
+				class="p-2 content-center items-center place-content-center place-items-center"
+			>
+				<h1 class="text-4xl text-white mt-8">
+					This is a WIP official site for flamendless!
+				</h1>
+			</div>
+
+			<div class="mt-8">
+				<div class="m-16 bg-white shadow-xl rounded place-self-center flex flex-row flex-wrap place-content-center border-black border bg-flam">
+					<a href="https://flamendless.github.io" class="m-8 text-3xl text-white text-center">
+						Go to main webiste
+						<br>
+						(blogs, projects, and more)
+					</a>
+				</div>
+
+				<div class="m-16 bg-white shadow-xl rounded place-self-center flex flex-row flex-wrap place-content-center border-black border bg-trophy">
+					<a href="/youth-convention-2025/" class="m-8 text-3xl text-black text-center">
+						Take the
+						<br>
+						Youth Convention 2025 Bible Quiz!
+					</a>
+				</div>
+			</div>
+		</body>
+	</html>
+}

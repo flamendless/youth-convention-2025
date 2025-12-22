@@ -1,0 +1,42 @@
+package components
+
+var onceHeadLinks = templ.NewOnceHandle()
+
+templ Base(title string, children ...templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			if title == "" {
+				<title>YOUTH CONVENTION 2025</title>
+			} else {
+				<title>{ title }</title>
+			}
+			@onceHeadLinks.Once() {
+				<link rel="icon" type="image/x-icon" href="/youth-convention-2025/static/images/favicon.png"/>
+				<link href="/youth-convention-2025/static/css/tailwind.css" rel="stylesheet"/>
+				<link href="/youth-convention-2025/static/css/custom.css" rel="stylesheet"/>
+				<script type="text/javascript" src={ string(templ.URL("/youth-convention-2025/static/js/htmx.min.js")) }></script>
+			}
+		</head>
+
+		<body
+			class="w-screen h-screen bg-cover bg-no-repeat overflow-x-hidden"
+		>
+			<div
+				id="header"
+				class="p-2 flex items-center justify-center w-full bg-white/90 backdrop-blur-sm"
+			>
+				<h1 class="focus-text text-4xl mr-[4rem]">
+					<a href="/youth-convention-2025/">
+						YOUTH CONVENTION 2025 BIBLE QUIZ
+					</a>
+				</h1>
+			</div>
+			for _, child := range children {
+				@child
+			}
+		</body>
+	</html>
+}

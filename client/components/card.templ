@@ -1,0 +1,126 @@
+package components
+
+import (
+	"fmt"
+	"strings"
+	"youth-convention-2025/internal/constants"
+	"youth-convention-2025/internal/models"
+)
+
+css letterBGImage(name string) {
+	background-image: { templ.SafeCSSProperty(fmt.Sprintf("url('/youth-convention-2025/static/images/%s.jpg');'", name)) };
+}
+
+templ WideCenterCard(children ...templ.Component) {
+	<div
+		class="bg-white shadow-xl rounded place-self-center flex flex-row flex-wrap place-content-center justify-around mt-10 mx-8 w-11/12 h-11/12"
+	>
+		for _, child := range children {
+			@child
+		}
+	</div>
+}
+
+templ WideCenterCardCol(children ...templ.Component) {
+	<div
+		class="bg-white shadow-xl rounded place-self-center flex flex-col flex-wrap place-content-center justify-around mt-10 mx-8 w-11/12 h-11/12"
+	>
+		for _, child := range children {
+			@child
+		}
+	</div>
+}
+
+templ LetterCard(char string, background string) {
+	<div
+		class={ letterBGImage(background), "bg-white", "shadow-xl", "rounded", "mx-4", "my-[1rem]", "py-5", "w-1/8", "h-1/5", "place-self-center", "flex", "flex-col", "place-content-center", "border-black", "border", "bg-center", "bg-cover" }
+	>
+		<a href={ templ.URL(fmt.Sprintf("/youth-convention-2025/difficulty?letter=%s", char)) }>
+			<h1 class="focus-text text-4xl text-center underline text-white">
+				{ char }
+			</h1>
+		</a>
+	</div>
+}
+
+templ CardTitle(title string, char string) {
+	<div
+		class={ letterBGImage(strings.ToLower(char)), "mx-4", "my-2", "py-2", "bg-center", "bg-cover", "w-screen", "h-[25vh]", "flex", "justify-center", "items-center", "mb-[4em]" }
+	>
+		<div class="backdrop-blur-xl bg-black/50 px-6 py-3 rounded-xl">
+			<h1 class="focus-text text-4xl text-center drop-shadow-2xl underline">
+				{ title }
+			</h1>
+		</div>
+	</div>
+}
+
+templ DifficultyCardBody(children ...templ.Component) {
+	<div
+		class={ "bg-white", "mx-4", "w-1/3", "h-9/12", "place-self-center", "flex", "flex-row", "place-content-center", "bg-center", "bg-cover", "flex-grow", "m-auto" }
+	>
+		for _, child := range children {
+			@child
+		}
+	</div>
+}
+
+templ DifficultyCard(char string, difficulty string) {
+	<div
+		class={ letterBGImage(difficulty), "bg-white", "place-self-center", "flex", "flex-row", "place-content-center", "bg-center", "bg-cover", "m-auto", "my-8", "flex-grow", "h-96", "mx-2", "items-center", "h-[50vh]" }
+	>
+		<a href={ templ.URL(fmt.Sprintf("/youth-convention-2025/question?letter=%s&difficulty=%s", char, difficulty)) }>
+			<h1 class="focus-text text-8xl text-center text-white drop-shadow-2xl underline">
+				{ difficulty }
+			</h1>
+		</a>
+	</div>
+}
+
+templ Question(title string, qa *models.QA) {
+	<div
+		class={ "bg-white", "place-self-center", "flex", "flex-col", "place-content-center", "bg-center", "bg-cover", "m-auto", "my-8", "flex-grow", "h-96", "mx-2", "items-center" }
+	>
+		<!-- <h1 class="focus-text text-2xl text-left text-black drop-shadow-2xl underline"> -->
+		<!-- 	{ title } -->
+		<!-- </h1> -->
+		<h1 class="focus-text text-4xl text-center text-black drop-shadow-2xl m-auto">
+			{ qa.Question }
+		</h1>
+
+		<div
+			class="bg-teal-500 px-4 py-2 rounded my-auto"
+		>
+			<a
+				href={ templ.URL(fmt.Sprintf("/youth-convention-2025/answer?letter=%s&difficulty=%s", qa.Letter, qa.Difficulty)) }
+				class="focus-text text-4xl text-center text-black drop-shadow-2xl"
+			>
+				Show Answer
+			</a>
+		</div>
+	</div>
+}
+
+templ Answer(title string, qa *models.QA) {
+	<div
+		class={ "bg-white", "place-self-center", "flex", "flex-col", "place-content-center", "bg-center", "bg-cover", "m-auto", "my-8", "flex-grow", "h-96", "mx-2", "items-center" }
+	>
+		<!-- <h1 class="focus-text text-2xl text-left text-black drop-shadow-2xl underline"> -->
+		<!-- 	{ title } -->
+		<!-- </h1> -->
+
+		if qa.Difficulty != constants.STR_HURDLE {
+			<h1 class="focus-text text-4xl text-center text-black drop-shadow-2xl m-auto">
+				{ qa.Answer }
+			</h1>
+		} else {
+			<div class="flex flex-wrap flex-row flex-grow place-content-evenly items-evenly justify-evenly content-evenly max-w-11/12 max-h-11/12 mb-2">
+			for _, ans := range qa.Answers {
+				<h1 class="focus-text text-xl text-center text-black drop-shadow-2xl m-auto border border-black p-2 rounded my-2 w-2/12 flex-grow">
+					{ ans }
+				</h1>
+			}
+			</div>
+		}
+	</div>
+}
