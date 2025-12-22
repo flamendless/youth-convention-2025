@@ -1,0 +1,15 @@
+body {
+	background-image: url("/youth-convention-2025/static/images/bg.jpg");
+}
+
+.focus-text {
+	color: white;
+	background: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(8px);
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 2em;
+	padding-right: 2em;
+}
